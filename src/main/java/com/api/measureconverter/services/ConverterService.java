@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.api.measureconverter.model.ConverterEntity;
 import com.api.measureconverter.repositories.ConverterRepository;
+import com.api.measureconverter.utils.dto.ConverterDto;
 import com.api.measureconverter.utils.enums.ConversionCategories;
 
 @Service
@@ -16,12 +17,21 @@ public class ConverterService {
     @Autowired
     private ConverterRepository conversionRepository;
 
-    public double convert(double value, String fromUnit, String toUnit, ConversionCategories type) {
+    public ConverterDto convert(double value, String fromUnit, String toUnit, ConversionCategories type) {
         Optional<ConverterEntity> conversion = conversionRepository.findByFromUnitAndToUnitAndType(fromUnit, toUnit,
                 type);
 
         if (conversion.isPresent()) {
-            return value * conversion.get().getFactor();
+            Double result = value * conversion.get().getFactor();
+
+            return new ConverterDto.Builder()
+                    .fromUnit(fromUnit)
+                    .toUnit(toUnit)
+                    .factor(conversion.get().getFactor())
+                    .type(type)
+                    .result(String.valueOf(result))
+                    .build();
+
         } else {
             throw new IllegalArgumentException("Conversion not supported");
         }
