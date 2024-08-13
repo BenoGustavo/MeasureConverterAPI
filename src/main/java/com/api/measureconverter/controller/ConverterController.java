@@ -20,11 +20,7 @@ import com.api.measureconverter.utils.reponse.Response;
 public class ConverterController {
 
     @Autowired
-    private final ConverterService conversionService;
-
-    public ConverterController(ConverterService conversionService) {
-        this.conversionService = conversionService;
-    }
+    private ConverterService conversionService;
 
     @GetMapping
     public ResponseEntity<Response<ConverterDto>> convert(
