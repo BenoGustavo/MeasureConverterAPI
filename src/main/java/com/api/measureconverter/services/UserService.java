@@ -5,23 +5,27 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.api.measureconverter.model.UserEntity;
 import com.api.measureconverter.repositories.UserRepository;
+import com.api.measureconverter.utils.dto.RegisterDto;
 import com.api.measureconverter.utils.dto.UserDto;
+import com.api.measureconverter.utils.enums.Roles;
 
 @Service
 public class UserService {
     @Autowired
-    private final UserRepository userRepository;
+    UserRepository userRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
-
-    public UserDto create(UserEntity user) {
-        return userRepository.save(user).toDto();
+    public UserDto create(RegisterDto user, Roles role) {
+        UserEntity userEntity = user.toEntity();
+        userEntity.setRole(role);
+        userEntity.setPassword(passwordEncoder.encode(userEntity.getPassword()));
+        return userRepository.save(userEntity).toDto();
     }
 
     // Get active users
