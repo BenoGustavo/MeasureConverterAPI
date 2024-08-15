@@ -19,12 +19,12 @@ public class UserService {
     @Autowired
     UserRepository userRepository;
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    PasswordEncoder passwordEncoder;
 
     public UserDto create(RegisterDto user, Roles role) {
         UserEntity userEntity = user.toEntity();
         userEntity.setRole(role);
-        userEntity.setPassword(passwordEncoder.encode(userEntity.getPassword()));
+        userEntity.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(userEntity).toDto();
     }
 
