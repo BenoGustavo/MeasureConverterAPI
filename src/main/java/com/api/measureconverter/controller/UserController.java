@@ -12,8 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.api.measureconverter.error.custom.BadRequest400Exception;
 import com.api.measureconverter.services.UserService;
+import com.api.measureconverter.utils.dto.RegisterDto;
 import com.api.measureconverter.utils.dto.UserDto;
+import com.api.measureconverter.utils.enums.Roles;
 import com.api.measureconverter.utils.reponse.Response;
 
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
@@ -26,8 +29,12 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/create")
-    public ResponseEntity<Response<UserDto>> create(@RequestBody UserDto user) {
-        UserDto result = userService.create(user.toEntity());
+    public ResponseEntity<Response<UserDto>> create(@RequestBody RegisterDto user, @RequestParam Roles role) {
+        if (role == null) {
+            throw new BadRequest400Exception("Role is required as request parameter");
+        }
+
+        UserDto result = userService.create(user, role);
 
         Response<UserDto> response = new Response.Builder<UserDto>()
                 .result("Success")
