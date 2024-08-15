@@ -55,6 +55,18 @@ public class JwtUtil {
     }
 
     /**
+     * Validates the given JWT token against the provided user details.
+     *
+     * @param token       the JWT token
+     * @param userDetails the user details to validate against
+     * @return true if the token is valid and not expired, false otherwise
+     */
+    public boolean isTokenValid(String token, UserDetails userDetails) {
+        final String username = extractEmail(token);
+        return (username.equals(userDetails.getUsername())) && !isTokenExpired(token);
+    }
+
+    /**
      * Generates a JWT token for the given authentication.
      *
      * @param authentication the authentication object
@@ -72,6 +84,32 @@ public class JwtUtil {
     }
 
     /**
+     * Generates a JWT token for the given user entity.
+     *
+     * @param userEntity the user entity object
+     * @return the generated JWT token
+     */
+    public String generateToken(UserEntity userEntity) {
+        return Jwts.builder()
+                .setSubject(userEntity.getEmail())
+                .setIssuedAt(new Date())
+                .setExpiration(expirationJwtDate)
+                .signWith(SignatureAlgorithm.HS256, secretKey)
+                .compact();
+    }
+
+    /**
+     * Extracts the claim from the given JWT token.
+     *
+     * @param token  the JWT token
+     * @param claims the claims to extract
+     * @return the claim extracted from the token
+     */
+    public Date extractExpirationDate(String token) {
+        return extractClaims(token).getExpiration();
+    }
+
+    /**
      * Generates a JWT token for the given user details.
      *
      * @param userDetails the user details object
@@ -80,7 +118,7 @@ public class JwtUtil {
     public String generateToken(UserDetails userDetails) {
         String username = userDetails.getUsername();
 
-        System.out.println("Generating token for user: " + username);
+        System.out.println("\n\nGenerating token for user: " + username + "\n\n");
 
         return Jwts.builder()
                 .setSubject(username)
