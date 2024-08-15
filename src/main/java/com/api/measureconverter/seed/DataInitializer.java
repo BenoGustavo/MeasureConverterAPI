@@ -2,23 +2,44 @@ package com.api.measureconverter.seed;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
+import com.api.measureconverter.controller.UserController;
 import com.api.measureconverter.model.ConverterEntity;
 import com.api.measureconverter.repositories.ConverterRepository;
+import com.api.measureconverter.repositories.UserRepository;
+import com.api.measureconverter.utils.dto.RegisterDto;
+import com.api.measureconverter.utils.dto.UserDto;
 import com.api.measureconverter.utils.enums.ConversionCategories;
+import com.api.measureconverter.utils.enums.Roles;
+import com.api.measureconverter.utils.reponse.Response;
 
 import jakarta.transaction.Transactional;
 
 @Component
 public class DataInitializer implements CommandLineRunner {
 
-    private final ConverterRepository conversionRepository;
+    @Autowired
+    ConverterRepository conversionRepository;
 
-    public DataInitializer(ConverterRepository conversionRepository) {
-        this.conversionRepository = conversionRepository;
-    }
+    @Autowired
+    UserRepository userRepository;
+
+    @Autowired
+    UserController userController;
+
+    @Value("${ADMIN_USERNAME}")
+    private String username;
+
+    @Value("${ADMIN_EMAIL}")
+    private String adminEmail;
+
+    @Value("${ADMIN_PASSWORD}")
+    private String adminPassword;
 
     @Override
     @Transactional
@@ -211,6 +232,17 @@ public class DataInitializer implements CommandLineRunner {
                 conversionRepository.save(conversion);
             }
         }
+
+        if (!userRepository.existsByEmailAndUsername(adminEmail, username)) {
+            RegisterDto registerDto = new RegisterDto(username, adminEmail, adminPassword, adminPassword);
+            createAdminUser(registerDto);
+        } else {
+            System.out.println("\n\nAdmin user already exists, Email or Username already begin used\n\n");
+        }
+    }
+
+    private ResponseEntity<Response<UserDto>> createAdminUser(RegisterDto registerDto) {
+        return userController.create(registerDto, Roles.ADMIN);
     }
 
     private ConverterEntity createConversion(String fromUnit, String toUnit, double factor, ConversionCategories type) {
