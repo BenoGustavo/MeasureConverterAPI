@@ -26,11 +26,17 @@ public class SecurityConfig {
             "/swagger-ui/**",
     };
 
+    private final static String[] ONLY_ADMIN_ALLOWED_ROUTES = {
+            "/api/user/admin/**",
+    };
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
-                        .requestMatchers(WHITE_LIST).permitAll().anyRequest().authenticated())
+                        .requestMatchers(WHITE_LIST).permitAll()
+                        .requestMatchers(ONLY_ADMIN_ALLOWED_ROUTES).hasRole("ADMIN")
+                        .anyRequest().authenticated())
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(sessionManagement -> sessionManagement
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
