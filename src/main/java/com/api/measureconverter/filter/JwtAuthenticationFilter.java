@@ -54,7 +54,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 if (jwtUtil.isTokenValid(jwt, userDetails)) {
                     UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                             userDetails,
-                            null,
+                            jwt,
                             userDetails.getAuthorities());
 
                     authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
@@ -67,7 +67,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             // SHOUDLD FIND A BETTER WAY OF HANDLING EXCEPTIONS HERE, GLOBAL EXCEPTION
             // HANDLER DON'T WORK FOR FILTERS
         } catch (ServletException servletException) {
-            throw new ServletException(servletException.getMessage());
+            throw new ServletException(servletException);
         } catch (UsernameNotFoundException usernameNotFoundException) {
             throw new NotFound404Exception("User not found");
         } catch (IOException ioException) {
