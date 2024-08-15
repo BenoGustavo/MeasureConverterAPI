@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,8 +20,6 @@ import com.api.measureconverter.utils.dto.UserDto;
 import com.api.measureconverter.utils.enums.Roles;
 import com.api.measureconverter.utils.reponse.Response;
 
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
-
 @RestController
 @RequestMapping("/api/user")
 public class UserController {
@@ -28,7 +27,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @PostMapping("/create")
+    @PostMapping("/admin/create")
     public ResponseEntity<Response<UserDto>> create(@RequestBody RegisterDto user, @RequestParam Roles role) {
         if (role == null) {
             throw new BadRequest400Exception("Role is required as request parameter");
@@ -45,7 +44,7 @@ public class UserController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/getAll")
+    @GetMapping("/admin/getAll")
     public ResponseEntity<Response<List<UserDto>>> getAll() {
         List<UserDto> result = userService.getAll();
 
@@ -58,7 +57,7 @@ public class UserController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/getAllActive")
+    @GetMapping("/admin/getAllActive")
     public ResponseEntity<Response<List<UserDto>>> getAllActive() {
         List<UserDto> result = userService.getActiveOnly();
 
@@ -71,7 +70,7 @@ public class UserController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/getActiveById")
+    @GetMapping("/admin/getActiveById")
     public ResponseEntity<Response<UserDto>> getActiveById(@RequestParam UUID id) {
         UserDto result = userService.getActiveById(id);
 
