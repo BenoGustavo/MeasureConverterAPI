@@ -247,7 +247,7 @@ public class DataInitializer implements CommandLineRunner {
     }
 
     private ResponseEntity<Response<UserDto>> createAdminUser(RegisterDto registerDto) {
-        return userController.create(registerDto, Roles.ADMIN);
+        return userController.create(registerDto, Roles.ROLE_ADMIN);
     }
 
     private Boolean isUserInfoNull(List<String> userInfo) {

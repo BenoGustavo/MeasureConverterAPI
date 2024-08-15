@@ -28,7 +28,7 @@ public class AuthenticationService {
 
     public UserEntity signup(@RequestBody RegisterDto registerDto) {
         UserEntity userEntity = registerDto.toEntity();
-        userEntity.setRole(Roles.USER);
+        userEntity.setRole(Roles.ROLE_USER);
         userEntity.setPassword(passwordEncoder.encode(userEntity.getPassword()));
 
         return userRepository.save(userEntity);
