@@ -3,8 +3,8 @@ package com.api.measureconverter.model;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.data.annotation.CreatedDate;
 
 import com.api.measureconverter.utils.dto.UserDto;
 import com.api.measureconverter.utils.enums.Roles;
@@ -32,7 +32,7 @@ public class UserEntity {
     private String password;
     private Roles role;
 
-    @CreatedDate
+    @CreationTimestamp
     @Column(updatable = false)
     private LocalDateTime createdAt;
     @UpdateTimestamp
