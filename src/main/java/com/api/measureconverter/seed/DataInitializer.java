@@ -233,6 +233,11 @@ public class DataInitializer implements CommandLineRunner {
             }
         }
 
+        if (!isUserInfoNull(List.of(username, adminEmail, adminPassword))) {
+            System.out.println("\n\nAdmin user not created, perhaps you didn't set the env variables for it?\n\n");
+            return;
+        }
+
         if (!userRepository.existsByEmailAndUsername(adminEmail, username)) {
             RegisterDto registerDto = new RegisterDto(username, adminEmail, adminPassword, adminPassword);
             createAdminUser(registerDto);
@@ -243,6 +248,16 @@ public class DataInitializer implements CommandLineRunner {
 
     private ResponseEntity<Response<UserDto>> createAdminUser(RegisterDto registerDto) {
         return userController.create(registerDto, Roles.ADMIN);
+    }
+
+    private Boolean isUserInfoNull(List<String> userInfo) {
+        for (String info : userInfo) {
+            if (info == null || info.isEmpty()) {
+                System.out.println("\n\nAdmin user info is missing, please provide the required information\n\n");
+                return false;
+            }
+        }
+        return true;
     }
 
     private ConverterEntity createConversion(String fromUnit, String toUnit, double factor, ConversionCategories type) {
