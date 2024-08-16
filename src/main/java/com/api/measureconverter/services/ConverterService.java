@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.api.measureconverter.error.custom.BadRequest400Exception;
 import com.api.measureconverter.model.ConverterEntity;
 import com.api.measureconverter.repositories.ConverterRepository;
 import com.api.measureconverter.utils.dto.ConverterDto;
@@ -33,7 +34,7 @@ public class ConverterService {
                     .build();
 
         } else {
-            throw new IllegalArgumentException("Conversion not supported");
+            throw new BadRequest400Exception("Conversion not supported");
         }
     }
 
