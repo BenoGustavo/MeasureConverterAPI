@@ -25,7 +25,8 @@ public class AuthenticationController {
     private JwtUtil jwtUtil;
 
     @PostMapping("/signup")
-    public ResponseEntity<Response<UserEntity>> signup(@RequestBody RegisterDto registerDto) {
+    public ResponseEntity<Response<UserEntity>> signup(@RequestBody RegisterDto registerDto)
+            throws IllegalArgumentException {
 
         UserEntity userEntity = authenticationService.signup(registerDto);
 
