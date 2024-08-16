@@ -9,6 +9,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import com.api.measureconverter.error.custom.Unauthorized401Exception;
 import com.api.measureconverter.model.UserEntity;
@@ -16,8 +17,6 @@ import com.api.measureconverter.repositories.UserRepository;
 import com.api.measureconverter.utils.dto.LoginDto;
 import com.api.measureconverter.utils.dto.RegisterDto;
 import com.api.measureconverter.utils.enums.Roles;
-
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 
 @Service
 public class AuthenticationService {
