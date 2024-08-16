@@ -42,6 +42,11 @@ public class Response<T> {
             return this;
         }
 
+        public Builder<T> error(int code, String message, String description) {
+            this.error = new ResponseError(code, message, description);
+            return this;
+        }
+
         public Builder<T> data(T data) {
             this.data = data;
             return this;
