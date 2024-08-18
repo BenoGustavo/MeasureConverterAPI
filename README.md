@@ -153,6 +153,12 @@ Ensure all the above requirements are met before attempting to build and run the
    java -jar target/MeasureConverter-0.0.1-SNAPSHOT.jar
    ```
 
+## How to compile compile
+
+   ```sh
+   mvn package && java -jar target/MeasureConverter-0.0.1-SNAPSHOT.jar
+   ```
+
 ## Main Classes
 
 - **[`MeasureConverterApplication`](./src/main/java/com/api/measureconverter/MeasureConverterApplication.java):**
