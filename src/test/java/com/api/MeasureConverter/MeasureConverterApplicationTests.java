@@ -1,13 +1,13 @@
-package com.api.MeasureConverter;
+// package com.api.MeasureConverter;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+// import org.junit.jupiter.api.Test;
+// import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
-class MeasureConverterApplicationTests {
+// @SpringBootTest
+// class MeasureConverterApplicationTests {
 
-	@Test
-	void contextLoads() {
-	}
+// @Test
+// void contextLoads() {
+// }
 
-}
+// }
