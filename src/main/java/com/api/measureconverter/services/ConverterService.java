@@ -48,8 +48,8 @@ public class ConverterService {
         return conversionRepository.findByType(type);
     }
 
-    public List<String> findAllDistinctToUnit(ConversionCategories type) {
-        return conversionRepository.findAllDistinctToUnit(type);
+    public List<String> findAllDistinctToUnit(String fromUnit, ConversionCategories type) {
+        return conversionRepository.findAllDistinctToUnit(fromUnit, type);
     }
 
     public List<String> findAllDistinctFromUnit(ConversionCategories type) {

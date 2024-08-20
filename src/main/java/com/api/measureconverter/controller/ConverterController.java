@@ -78,8 +78,9 @@ public class ConverterController {
     }
 
     @GetMapping("/toUnits")
-    public ResponseEntity<Response<List<String>>> getToUnits(@RequestParam ConversionCategories type) {
-        List<String> result = conversionService.findAllDistinctToUnit(type);
+    public ResponseEntity<Response<List<String>>> getToUnits(@RequestParam String fromUnits,
+            @RequestParam ConversionCategories type) {
+        List<String> result = conversionService.findAllDistinctToUnit(fromUnits, type);
 
         Response<List<String>> response = new Response.Builder<List<String>>()
                 .result("Success")

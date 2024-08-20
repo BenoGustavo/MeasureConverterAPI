@@ -23,8 +23,8 @@ public interface ConverterRepository extends JpaRepository<ConverterEntity, UUID
 
     boolean existsByFromUnitAndToUnit(String fromUnit, String toUnit);
 
-    @Query("SELECT DISTINCT c.toUnit FROM ConverterEntity c WHERE c.type = :type")
-    List<String> findAllDistinctToUnit(@Param("type") ConversionCategories type);
+    @Query("SELECT DISTINCT c.toUnit FROM ConverterEntity c WHERE c.type = :type AND c.fromUnit = :fromUnit")
+    List<String> findAllDistinctToUnit(@Param("fromUnit") String fromUnit, @Param("type") ConversionCategories type);
 
     @Query("SELECT DISTINCT c.fromUnit FROM ConverterEntity c WHERE c.type = :type")
     List<String> findAllDistinctFromUnit(@Param("type") ConversionCategories type);
