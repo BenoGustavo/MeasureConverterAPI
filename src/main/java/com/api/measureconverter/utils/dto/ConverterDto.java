@@ -1,5 +1,7 @@
 package com.api.measureconverter.utils.dto;
 
+import java.math.BigDecimal;
+
 import com.api.measureconverter.utils.enums.ConversionCategories;
 
 import lombok.Data;
@@ -8,12 +10,12 @@ import lombok.Data;
 public class ConverterDto {
     private String fromUnit;
     private String toUnit;
-    private double factor;
+    private BigDecimal factor;
     private ConversionCategories type;
 
     private String result;
 
-    private ConverterDto(String fromUnit, String toUnit, double factor, ConversionCategories type, String result) {
+    private ConverterDto(String fromUnit, String toUnit, BigDecimal factor, ConversionCategories type, String result) {
         this.fromUnit = fromUnit;
         this.toUnit = toUnit;
         this.factor = factor;
@@ -24,7 +26,7 @@ public class ConverterDto {
     public static class Builder {
         private String fromUnit;
         private String toUnit;
-        private double factor;
+        private BigDecimal factor;
         private ConversionCategories type;
         private String result;
 
@@ -38,7 +40,7 @@ public class ConverterDto {
             return this;
         }
 
-        public Builder factor(double factor) {
+        public Builder factor(BigDecimal factor) {
             this.factor = factor;
             return this;
         }

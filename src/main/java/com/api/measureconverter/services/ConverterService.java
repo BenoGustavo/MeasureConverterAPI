@@ -1,5 +1,6 @@
 package com.api.measureconverter.services;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,8 +23,9 @@ public class ConverterService {
         Optional<ConverterEntity> conversion = conversionRepository.findByFromUnitAndToUnitAndType(fromUnit, toUnit,
                 type);
 
+        // try to find the conversion in the database
         if (conversion.isPresent()) {
-            Double result = value * conversion.get().getFactor();
+            BigDecimal result = BigDecimal.valueOf(value).multiply(conversion.get().getFactor());
 
             return new ConverterDto.Builder()
                     .fromUnit(fromUnit)
@@ -32,10 +34,10 @@ public class ConverterService {
                     .type(type)
                     .result(String.valueOf(result))
                     .build();
-
-        } else {
-            throw new BadRequest400Exception("Conversion not supported");
         }
+
+        // Throw an exception if the conversion is not supported
+        throw new BadRequest400Exception("Conversion not supported");
     }
 
     public List<ConversionCategories> findAllDistinctTypes() {

@@ -1,5 +1,6 @@
 package com.api.measureconverter.model;
 
+import java.math.BigDecimal;
 import java.util.UUID;
 
 import com.api.measureconverter.utils.enums.ConversionCategories;
@@ -31,7 +32,7 @@ public class ConverterEntity {
     @Column(name = "to_unit")
     private String toUnit;
 
-    private double factor;
+    private BigDecimal factor;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "type", nullable = false)
@@ -42,7 +43,7 @@ public class ConverterEntity {
         private UUID id;
         private String fromUnit;
         private String toUnit;
-        private double factor;
+        private BigDecimal factor;
         private ConversionCategories type;
 
         public Builder id(UUID id) {
@@ -60,7 +61,7 @@ public class ConverterEntity {
             return this;
         }
 
-        public Builder factor(double factor) {
+        public Builder factor(BigDecimal factor) {
             this.factor = factor;
             return this;
         }

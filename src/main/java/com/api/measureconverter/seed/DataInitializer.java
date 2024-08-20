@@ -1,5 +1,6 @@
 package com.api.measureconverter.seed;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -213,6 +214,9 @@ public class DataInitializer implements CommandLineRunner {
                 createConversion("revolutions_per_minute", "hertz", 0.0166667, ConversionCategories.FREQUENCY),
                 createConversion("hertz", "revolutions_per_minute", 60, ConversionCategories.FREQUENCY),
                 createConversion("terahertz", "gigahertz", 1000, ConversionCategories.FREQUENCY),
+                createConversion("terahertz", "megahertz", 1e+6, ConversionCategories.FREQUENCY),
+                createConversion("terahertz", "kilohertz", 1e+9, ConversionCategories.FREQUENCY),
+                createConversion("terahertz", "hertz", 1e+12, ConversionCategories.FREQUENCY),
                 createConversion("gigahertz", "terahertz", 0.001, ConversionCategories.FREQUENCY),
 
                 // Electric current conversions
@@ -260,11 +264,12 @@ public class DataInitializer implements CommandLineRunner {
         return true;
     }
 
-    private ConverterEntity createConversion(String fromUnit, String toUnit, double factor, ConversionCategories type) {
+    private ConverterEntity createConversion(String fromUnit, String toUnit, double factor,
+            ConversionCategories type) {
         return ConverterEntity.builder()
                 .fromUnit(fromUnit)
                 .toUnit(toUnit)
-                .factor(factor)
+                .factor(BigDecimal.valueOf(factor))
                 .type(type)
                 .build();
     }
