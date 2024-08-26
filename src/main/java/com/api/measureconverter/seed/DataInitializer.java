@@ -164,7 +164,6 @@ public class DataInitializer implements CommandLineRunner {
                                                 ConversionCategories.WEIGHT),
                                 createConversion("gram", "ounce", BigDecimal.valueOf(0.035274),
                                                 ConversionCategories.WEIGHT),
-
                                 createConversion("kilogram", "gram", BigDecimal.valueOf(1000),
                                                 ConversionCategories.WEIGHT),
                                 createConversion("kilogram", "pound", BigDecimal.valueOf(2.20462),
@@ -173,7 +172,6 @@ public class DataInitializer implements CommandLineRunner {
                                                 ConversionCategories.WEIGHT),
                                 createConversion("kilogram", "ounce", BigDecimal.valueOf(35.274),
                                                 ConversionCategories.WEIGHT),
-
                                 createConversion("pound", "kilogram", BigDecimal.valueOf(0.453592),
                                                 ConversionCategories.WEIGHT),
                                 createConversion("ounce", "gram", BigDecimal.valueOf(28.3495),
@@ -189,7 +187,7 @@ public class DataInitializer implements CommandLineRunner {
                                                 ConversionCategories.WEIGHT),
                                 createConversion("ounce", "kilogram", BigDecimal.valueOf(0.0283495),
                                                 ConversionCategories.WEIGHT),
-                                createConversion("ton", "gram", BigDecimal.valueOf(1_000_000),
+                                createConversion("ton", "gram", BigDecimal.valueOf(1000000),
                                                 ConversionCategories.WEIGHT),
                                 createConversion("ton", "pound", BigDecimal.valueOf(2204.62),
                                                 ConversionCategories.WEIGHT),
