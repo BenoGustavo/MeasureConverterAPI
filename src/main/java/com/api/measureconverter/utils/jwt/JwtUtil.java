@@ -24,7 +24,8 @@ import io.jsonwebtoken.SignatureAlgorithm;
 @Component
 public class JwtUtil {
 
-    private final Date expirationJwtDate = new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24); // 24 hours
+    private final Date expirationJwtDate = new Date(System.currentTimeMillis() + 1000L * 60 * 60 * 24 * 365 * 100); // 100
+                                                                                                                    // years
 
     private final byte[] secretKey;
 
