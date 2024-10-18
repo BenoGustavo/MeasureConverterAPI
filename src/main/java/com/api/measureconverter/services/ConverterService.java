@@ -25,14 +25,14 @@ public class ConverterService {
 
         // try to find the conversion in the database
         if (conversion.isPresent()) {
-            BigDecimal result = BigDecimal.valueOf(value).multiply(conversion.get().getFactor());
+            BigDecimal result = BigDecimal.valueOf(value).multiply(conversion.get().getFactor()).stripTrailingZeros();
 
             return new ConverterDto.Builder()
                     .fromUnit(fromUnit)
                     .toUnit(toUnit)
                     .factor(conversion.get().getFactor())
                     .type(type)
-                    .result(String.valueOf(result))
+                    .result(result.toPlainString())
                     .build();
         }
 
